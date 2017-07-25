@@ -1,6 +1,5 @@
-namespace LuisBot.Dialogs
-{
-    using System;
+    #load "Message.csx"
+	using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -36,4 +35,3 @@ namespace LuisBot.Dialogs
             context.Wait(this.MessageReceived);
         }
     }
-}

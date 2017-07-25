@@ -80,7 +80,7 @@ public class BasicProactiveEchoDialog : IDialog<object>
 
         // Create the queue if it doesn't already exist.
         await queue.CreateIfNotExistsAsync();
-        
+
         // Create a message and add it to the queue.
         var queuemessage = new CloudQueueMessage(message);
         await queue.AddMessageAsync(queuemessage);

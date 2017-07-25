@@ -1,5 +1,6 @@
 #r "Newtonsoft.Json"
 #load "BasicProactiveEchoDialog.csx"
+#load "RootLuisDialog.csx"
 
 using System;
 using System.Net;
@@ -10,7 +11,6 @@ using Newtonsoft.Json.Linq;
 using Microsoft.Bot.Builder.Azure;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
-using Dialogs;
 
 public static async Task<object> Run(HttpRequestMessage req, TraceWriter log)
 {
