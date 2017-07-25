@@ -36,7 +36,7 @@ public static async Task<object> Run(HttpRequestMessage req, TraceWriter log)
             switch (activity.GetActivityType())
             {
                 case ActivityTypes.Message:
-                    await Conversation.SendAsync(activity, () => new BasicProactiveEchoDialog());
+                    //await Conversation.SendAsync(activity, () => new BasicProactiveEchoDialog());
 					
 					await Conversation.SendAsync(activity, () => new RootLuisDialog());
                     break;
