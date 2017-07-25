@@ -1,4 +1,4 @@
-#load "Message.csx"
+﻿#load "Message.csx"
 
 using System;
 using System.Threading.Tasks;
@@ -7,9 +7,10 @@ using Microsoft.Bot.Builder.Azure;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
 using Microsoft.Bot.Builder.ConnectorEx;
-using Microsoft.WindowsAzure.Storage; 
-using Microsoft.WindowsAzure.Storage.Queue; 
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Queue;
 using Newtonsoft.Json;
+using Dialogs;
 
 // For more information about this template visit http://aka.ms/azurebots-csharp-proactive
 [Serializable]
@@ -47,6 +48,8 @@ public class BasicProactiveEchoDialog : IDialog<object>
             // write the queue Message to the queue
             await AddMessageToQueueAsync(JsonConvert.SerializeObject(queueMessage));
 
+            await Conversation.SendAsync(activity, () => new RootLuisDialog());
+
             await context.PostAsync($"{this.count++}: You said {queueMessage.Text}. Message added to the queue.");
             context.Wait(MessageReceivedAsync);
         }
@@ -66,7 +69,7 @@ public class BasicProactiveEchoDialog : IDialog<object>
         }
         context.Wait(MessageReceivedAsync);
     }
-    
+
     public static async Task AddMessageToQueueAsync(string message)
     {
         // Retrieve storage account from connection string.
@@ -84,6 +87,11 @@ public class BasicProactiveEchoDialog : IDialog<object>
         // Create a message and add it to the queue.
         var queuemessage = new CloudQueueMessage(message);
         await queue.AddMessageAsync(queuemessage);
+    }
+
+    [LuisIntent("SearchHotels")]
+    public async Task Search(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
+    {
     }
 }
 
